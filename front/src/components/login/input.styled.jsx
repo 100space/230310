@@ -39,7 +39,7 @@ export const Input = () => {
         e.preventDefault()
         const userid = userId.value
         const userpw = userPw.value
-        const result = await axios.post("http://127.0.0.1:3005/login", { userid, userpw })
+        const result = await axios.post("http://localhost:3005/check", { userid, userpw }, { withCredentials: true })
         const { data } = result
         if (data.status === 200) {
             dispatch({ type: "LOGIN", payload: !state.isLogin })
