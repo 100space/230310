@@ -13,6 +13,7 @@ export const Navigation = ({ category, isLogin }) => {
         )
     }
     const subCate = (v) => {
+        console.log(v)
         return <Navigation category={v} isLogin={isLogin} />
     }
     return <ul>{category.filter(cateFilter).map(cateMap)}</ul>
