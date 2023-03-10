@@ -8,7 +8,7 @@ const message = {
   fail: { message: "아이디와 패스워드가 일치하지 않습니다.", status: 401, isLogin: false },
 };
 
-const expire = () => {
+const expireTime = () => {
   return Math.floor(Date.now() / 1000) + 60 * 60;
 };
 
@@ -19,20 +19,21 @@ const loginService = ({ userid, userpw }) => {
     if (!result) {
       return { ...message.fail };
     }
-    const exp = expire();
-    const token = jwt.sign({ ...result, exp }, salt);
-    return { token, ...message.success, exp };
+    const expire = expireTime();
+    const token = jwt.sign({ ...result, expire }, salt);
+    return { token, ...message.success, expire };
   } catch (e) {
     throw new Error(e);
   }
 };
 
-const logoutService = ({ token }) => {
+const getMe = ({ token }) => {
   try {
     const decoded = jwt.verify(token, salt);
-    const now = Math.floor(Date.now() / 1000);
-    return token;
-  } catch (e) {}
+    return decoded;
+  } catch (e) {
+    throw new Error(JSON.stringify({ message: e.message, status: 401 }));
+  }
 };
 
-module.exports = { loginService, logoutService };
+module.exports = { loginService, getMe };
