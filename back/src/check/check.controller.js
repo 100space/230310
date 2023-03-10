@@ -15,7 +15,6 @@ const login = (req, res, next) => {
 const logout = (req, res, next) => {
     try {
         const auth = req.headers.authorization
-        console.log(auth, 123123123)
         if (!auth) throw new Error(JSON.stringify({ message: "Authorization이 없습니다.", status: 401 }))
         const [type, token] = auth.split(" ")
         if (type.toLowerCase() !== "bearer") throw new Error(JSON.stringify({ message: "Authorization Type Error", status: 401 }))
