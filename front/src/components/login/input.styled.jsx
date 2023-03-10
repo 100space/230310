@@ -40,9 +40,12 @@ export const Input = () => {
         const userid = userId.value
         const userpw = userPw.value
         const result = await axios.post("http://localhost:3005/check", { userid, userpw }, { withCredentials: true })
+        const cookie = document.cookie.split("=")[1]
+        const response = await axios.get("http://localhost:3005/check", { headers: { Authorization: `Bearer ${cookie}` } })
+        const { expire } = response.data
         const { data } = result
         if (data.status === 200) {
-            dispatch({ type: "LOGIN", payload: !state.isLogin })
+            dispatch({ type: "LOGIN", payload: !state.isLogin, expire })
             navigate("/")
         } else if (data.status >= 400) {
             console.log(data.message)

@@ -7,7 +7,7 @@ export const useStore = () => useContext(Context)
 export const StoreProvider = ({ children }) => {
     const initialState = {
         isLogin: false,
-        user: {},
+        user: { expire: "" },
     }
     const [state, dispatch] = useReducer(rootReducer, initialState)
     const [persistedState, setPersistedState] = useGlobalState("state", state)
