@@ -29,11 +29,8 @@ const loginService = ({ userid, userpw }) => {
 
 const logoutService = ({ token }) => {
   try {
-    const now = Math.floor(Date.now() / 1000);
-    console.log(now);
     const decoded = jwt.verify(token, salt);
-    console.log(decoded);
-    // console.log(decoded);
+    const now = Math.floor(Date.now() / 1000);
     return token;
   } catch (e) {}
 };
