@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import axios from "axios"
+import { Logout } from "./Logout"
 import { useStore } from "../store"
 import { useEffect, useState } from "react"
 
@@ -33,14 +33,23 @@ export const Profile = () => {
     useEffect(() => {
         setInterval(() => {
             const dates = Math.floor(new Date() / 1000)
+            if (expire === dates) {
+            }
             setNow(dates)
         }, 1000)
     }, [])
+    // Logout
     return (
         <>
-            <Div>Profile</Div>
-            <Div>쿠키 만료까지 남은시간 </Div>
-            <Div> {check(expire)}</Div>
+            {expire - now === 0 ? (
+                <Logout />
+            ) : (
+                <>
+                    <Div>Profile</Div>
+                    <Div>쿠키 만료까지 남은시간 </Div>
+                    <Div> {check(expire)}</Div>
+                </>
+            )}
         </>
     )
 }
