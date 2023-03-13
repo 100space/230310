@@ -17,9 +17,12 @@ const setRouter = (app) => {
 
 const setErrorHandler = (app) => {
   app.use((err, req, res, next) => {
-    const result = JSON.parse(err.message);
-    if (result.status) return res.status(result.status).json(result);
-    res.status(500).send(err.message);
+    try {
+      const result = JSON.parse(err.message);
+      if (result.status) return res.status(result.status).json(result);
+    } catch (e) {
+      res.status(500).send(e.message);
+    }
   });
 };
 
